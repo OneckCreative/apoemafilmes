@@ -190,6 +190,10 @@
 * category = filter, filtra a categoria dos vídeos, vem da DB
 * idyoutbube = pego o ID do vídeo e gera a miniatura e iframe do vídeo
 * está exibindo só um vídeo lá da db, gostaria de saber como dizer para exibir os últimos 20.
+
+http://localhost/apoemafilmes/admin
+usuário: admim
+senha: 283201053
 -->      
         
         <div class="container-fluid">
