@@ -20,7 +20,7 @@
 		$rowContact = mysqli_fetch_array($sqlContact);		
 		$sqlSocial = mysqli_query($db_conn, "SELECT heading, facebook, twitter, linkedin, google, github FROM socialmedia");
 		$rowSocial = mysqli_fetch_array($sqlSocial);		
-		$sqlPages = mysqli_query($db_conn,"SELECT id, title, thumbnail, content, active, datetime FROM pages WHERE active=1 ORDER BY datetime DESC"); //uses while loop		
+		$sqlPages = mysqli_query($db_conn,"SELECT id, title, idyoutube, category, thumbnail, content, active, datetime FROM pages WHERE active=1 ORDER BY datetime DESC"); //uses while loop		
 		$sqlPagesActive = mysqli_query($db_conn,"SELECT id, title, thumbnail, content, active FROM pages WHERE active=1"); //uses while loop
 	?>
         <title>
@@ -67,9 +67,9 @@
         <meta name="og:locale" content="pt_BR">
         <meta name="og:type" content="website">
         <!--[if lt IE 9]>
-    <script src="assets/js/html5shiv.js"></script>
-    <script src="assets/js/respond.min.js"></script>
-  <![endif]-->
+        <script src="assets/js/html5shiv.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
         <?php
 		//Custom CSS
 		if ($customCss_url !="") {
@@ -189,158 +189,106 @@
             <div class="row">
                 <?php while ($rowPages  = mysqli_fetch_array($sqlPages)) { ?>
                     <div class="col-sm-3">
-                        <div class="folio-item wow fadeInRightBig filter filmes" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <?php 
+                                            if ($rowPages["idyoutube"] != "") {                                                
+                                                echo '<div class="folio-item wow fadeInRightBig filter'.$rowPages["category"].'data-wow-duration="1000ms" data-wow-delay="300ms">';
+                                            }
+                                            ?>
                             <div class="folio-image">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/MlwHKphUU_Y?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-                            </div>
+                                <?php 
+                                            if ($rowPages["idyoutube"] != "") {                                                
+                                                echo '<img src="https://img.youtube.com/vi/'.$rowPages["idyoutube"].'/hqdefault.jpg"/>';
+                                            }
+                                            ?> </div>
                             <div class="overlay">
                                 <div class="overlay-content">
                                     <div class="overlay-text">
                                         <div class="folio-info">
-                                            <h3>Apoema Filmes</h3> </div>
-                                        <div class="folio-overview">
-                                            <span class="folio-expand">
-                                                <a href="https://img.youtube.com/vi/MlwHKphUU_Y/hqdefault.jpg" data-lightbox="portfolio">
-                                                    <i class="fa fa-search-plus"></i>
-                                                </a>
-                                            </span>
-                                        </div>
+                                            <?php 
+                                            if ($rowPages["title"] != "") {
+                                                echo "<h3>".$rowPages["title"]."</h3>";
+                                            }
+                                            ?> </div>
+                                        <div class="folio-overview"> <span class="folio-expand">
+                                                <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-search-plus"></i></a>
+                                            </span> </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
-                    <?php }	?>
             </div>
+            <?php }	?>
+        </div>
         </div>
     </section>
-    <?php while ($rowPages  = mysqli_fetch_array($sqlPages)) { ?>
-        <div class="col-sm-4 portfolio-item">
-            <a href="#portfolioModal<?php echo $rowPages[" id "];?>" class="portfolio-link" data-toggle="modal">
-                <div class="caption">
-                    <div class="caption-content">
-                        <?php 
-                            if ($rowPages["title"] != "") {
-                                echo "<div class='portfolio-title'>".$rowPages["title"]."</div>";
-                            }
-                            ?> <i class="fa fa-search-plus fa-3x"></i> </div>
-                </div>
-                <?php 
-						if ($rowPages["thumbnail"] != "") {
-							echo "<img src='uploads/".$rowPages["thumbnail"]."' class='img-responsive' title='".$rowPages["title"]."' alt='".$rowPages["title"]."'>";
-						} else {
-							echo "<img src='img/portfolio/cake.png' class='img-responsive' title='".$rowPages["title"]."' alt='".$rowPages["title"]."'>";
-						}
-					?> </a>
-        </div>
-        <?php 
-				} 
-			?>
-            <section id="portfolio">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h2><?php echo $rowSetup["portfolioheading"];?></h2>
-                            <hr class="star-primary"> </div>
-                    </div>
-                    <div class="row">
-                        <?php
-				while ($rowPages  = mysqli_fetch_array($sqlPages)) {
-			?>
-                            <div class="col-sm-4 portfolio-item">
-                                <a href="#portfolioModal<?php echo $rowPages[" id "];?>" class="portfolio-link" data-toggle="modal">
-                                    <div class="caption">
-                                        <div class="caption-content">
-                                            <?php 
-                            if ($rowPages["title"] != "") {
-                                echo "<div class='portfolio-title'>".$rowPages["title"]."</div>";
-                            }
-                            ?> <i class="fa fa-search-plus fa-3x"></i> </div>
-                                    </div>
-                                    <?php 
-						if ($rowPages["thumbnail"] != "") {
-							echo "<img src='uploads/".$rowPages["thumbnail"]."' class='img-responsive' title='".$rowPages["title"]."' alt='".$rowPages["title"]."'>";
-						} else {
-							echo "<img src='img/portfolio/cake.png' class='img-responsive' title='".$rowPages["title"]."' alt='".$rowPages["title"]."'>";
-						}
-					?> </a>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2><?php echo $rowContact["heading"];?></h2>
+                    <hr class="star-primary"> </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <form name="sentMessage" id="contactForm" method="post" action="mail/contact_me.php">
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Name</label>
+                                <input type="text" class="form-control" placeholder="Name" id="name" name="name" maxlength="25" required data-validation-required-message="Please enter your name.">
+                                <p class="help-block text-danger"></p>
                             </div>
-                            <?php 
-				} 
-			?>
-                    </div>
-                </div>
-            </section>
-            <!-- Contact Section -->
-            <section id="contact">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h2><?php echo $rowContact["heading"];?></h2>
-                            <hr class="star-primary"> </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <form name="sentMessage" id="contactForm" method="post" action="mail/contact_me.php">
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Name</label>
-                                        <input type="text" class="form-control" placeholder="Name" id="name" name="name" maxlength="25" required data-validation-required-message="Please enter your name.">
-                                        <p class="help-block text-danger"></p>
-                                    </div>
-                                </div>
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Email Address</label>
-                                        <input type="email" class="form-control" placeholder="Email Address" id="email" name="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" maxlength="25" required data-validation-required-message="Please enter your email address.">
-                                        <p class="help-block text-danger"></p>
-                                    </div>
-                                </div>
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Phone Number</label>
-                                        <input type="tel" class="form-control" placeholder="Phone Number" id="phone" name="phone" maxlength="25" required data-validation-required-message="Please enter your phone number.">
-                                        <p class="help-block text-danger"></p>
-                                    </div>
-                                </div>
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Message</label>
-                                        <textarea rows="5" class="form-control" placeholder="Message" id="message" name="message" maxlength="255" required data-validation-required-message="Please enter a message."></textarea>
-                                        <p class="help-block text-danger"></p>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="sendToEmail" value="<?php echo $rowContact[" sendtoemail "];?>"/>
-                                <input type="hidden" id="referer" name="referer" value="<?php echo $_SESSION[" unique_referer "]; ?>"/>
-                                <br>
-                                <?php
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Email Address</label>
+                                <input type="email" class="form-control" placeholder="Email Address" id="email" name="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" maxlength="25" required data-validation-required-message="Please enter your email address.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Phone Number</label>
+                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" name="phone" maxlength="25" required data-validation-required-message="Please enter your phone number.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Message</label>
+                                <textarea rows="5" class="form-control" placeholder="Message" id="message" name="message" maxlength="255" required data-validation-required-message="Please enter a message."></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <input type="hidden" name="sendToEmail" value="<?php echo $rowContact[" sendtoemail "];?>"/>
+                        <input type="hidden" id="referer" name="referer" value="<?php echo $_SESSION[" unique_referer "]; ?>"/>
+                        <br>
+                        <?php
 							if ($_GET["msgsent"]=="thankyou") {
 								echo "<div id='success'><div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true' onclick=\"window.location.href='index.php#contact'\">×</button><strong>Your message has been sent. </strong></div></div>";
 							} elseif ($_GET["msgsent"]=="error") {
 								echo "<div id='success'><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true' onclick=\"window.location.href='index.php#contact'\">×</button><strong>An error occured while sending your message. </strong></div></div>";
 							}
 						?>
-                                    <div class="row">
-                                        <div class="form-group col-xs-12">
-                                            <button type="submit" class="btn btn-success btn-lg">Send</button>
-                                        </div>
-                                    </div>
-                            </form>
-                        </div>
-                    </div>
+                            <div class="row">
+                                <div class="form-group col-xs-12">
+                                    <button type="submit" class="btn btn-success btn-lg">Send</button>
+                                </div>
+                            </div>
+                    </form>
                 </div>
-            </section>
-            <!-- Footer -->
-            <footer class="text-center">
-                <div class="footer-above">
-                    <div class="container">
-                        <div class="row">
-                            <div class="footer-col col-md-4">
-                                <h3>Location</h3>
-                                <p>
-                                    <?php
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-md-4">
+                        <h3>Location</h3>
+                        <p>
+                            <?php
                         	if (!empty($rowContact["address"])) {
                         		echo $rowContact["address"]."<br>";
                         	}
@@ -357,12 +305,12 @@
 	                        	echo $rowContact["email"];
 	                        }
                         ?>
-                                </p>
-                            </div>
-                            <div class="footer-col col-md-4">
-                                <h3><?php echo $rowSocial["heading"];?></h3>
-                                <ul class="list-inline">
-                                    <?php
+                        </p>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3><?php echo $rowSocial["heading"];?></h3>
+                        <ul class="list-inline">
+                            <?php
 									if (!empty($rowSocial["facebook"])){
 										echo "<li><a href=".$rowSocial["facebook"]." class='btn-social btn-outline'><i class='fa fa-fw fa-facebook'></i></a></li>";
 									}
@@ -383,95 +331,95 @@
 										echo "<li><a href=".$rowSocial["linkedin"]." class='btn-social btn-outline'><i class='fa fa-fw fa-linkedin'></i></a></li>";
 									}
 								?>
-                                </ul>
-                            </div>
-                            <div class="footer-col col-md-4">
-                                <h3><?php echo $rowFooter["heading"];?></h3>
-                                <?php echo $rowFooter["content"];?>
-                            </div>
-                        </div>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3><?php echo $rowFooter["heading"];?></h3>
+                        <?php echo $rowFooter["content"];?>
                     </div>
                 </div>
-                <div class="footer-below">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12"> Copyright &copy;
-                                <?php echo $_SERVER['HTTP_HOST']."&nbsp;".date("Y");?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-            <div class="scroll-top page-scroll visible-xs visble-sm">
-                <a class="btn btn-primary" href="#page-top"> <i class="fa fa-chevron-up"></i> </a>
             </div>
-            <?php
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12"> Copyright &copy;
+                        <?php echo $_SERVER['HTTP_HOST']."&nbsp;".date("Y");?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top page-scroll visible-xs visble-sm">
+        <a class="btn btn-primary" href="#page-top"> <i class="fa fa-chevron-up"></i> </a>
+    </div>
+    <?php
 	while ($rowPagesActive  = mysqli_fetch_array($sqlPagesActive)) {
 ?>
-                <!-- Portfolio Modals -->
-                <div class="portfolio-modal modal fade" id="portfolioModal<?php echo $rowPagesActive[" id "];?>" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-content">
-                        <div class="close-modal" data-dismiss="modal">
-                            <div class="lr">
-                                <div class="rl"> </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-8 col-lg-offset-2">
-                                    <div class="modal-body">
-                                        <h2><?php echo $rowPagesActive["title"];?></h2>
-                                        <hr class="star-primary">
-                                        <?php 
+        <!-- Portfolio Modals -->
+        <div class="portfolio-modal modal fade" id="portfolioModal<?php echo $rowPagesActive[" id "];?>" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"> </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <div class="modal-body">
+                                <h2><?php echo $rowPagesActive["title"];?></h2>
+                                <hr class="star-primary">
+                                <?php 
 	                            if ($rowPagesActive["thumbnail"] != "") {
 	                                echo "<img src='uploads/".$rowPagesActive["thumbnail"]."' class='img-responsive img-centered' alt=''>";
 	                            } else {
 	                                echo "<img src='assets/img/portfolio/cake.png' class='img-responsive' alt=''>";
 	                            }
                             ?>
-                                            <?php echo $rowPagesActive["content"];?>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>
-                                    </div>
-                                </div>
+                                    <?php echo $rowPagesActive["content"];?>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <?php 
+            </div>
+        </div>
+        <?php 
 	} 
 ?>
-                    <script type="text/javascript" src="assets/js/jquery.js"></script>
-                    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-                    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-                    <script type="text/javascript" src="assets/js/jquery.inview.min.js"></script>
-                    <script type="text/javascript" src="assets/js/wow.min.js"></script>
-                    <script type="text/javascript" src="assets/js/mousescroll.js"></script>
-                    <script type="text/javascript" src="assets/js/smoothscroll.js"></script>
-                    <script type="text/javascript" src="assets/js/jquery.countTo.js"></script>
-                    <script type="text/javascript" src="assets/js/lightbox.min.js"></script>
-                    <script type="text/javascript" src="assets/js/main.js"></script>
-                    <script>
-                        $(document).ready(function () {
-                            $(".filter-button").click(function () {
-                                var value = $(this).attr('data-filter');
-                                if (value == "all") {
-                                    //$('.filter').removeClass('hidden');
-                                    $('.filter').show('1000');
-                                }
-                                else {
-                                    // $('.filter[filter-item="'+value+'"]').removeClass('hidden');
-                                    // $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
-                                    $(".filter").not('.' + value).hide('3000');
-                                    $('.filter').filter('.' + value).show('3000');
-                                }
-                            });
-                            if ($(".filter-button").removeClass("active")) {
-                                $(this).removeClass("active");
-                            }
-                            $(this).addClass("active");
-                        });
-                    </script>
+            <script type="text/javascript" src="assets/js/jquery.js"></script>
+            <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+            <script type="text/javascript" src="assets/js/jquery.inview.min.js"></script>
+            <script type="text/javascript" src="assets/js/wow.min.js"></script>
+            <script type="text/javascript" src="assets/js/mousescroll.js"></script>
+            <script type="text/javascript" src="assets/js/smoothscroll.js"></script>
+            <script type="text/javascript" src="assets/js/jquery.countTo.js"></script>
+            <script type="text/javascript" src="assets/js/lightbox.min.js"></script>
+            <script type="text/javascript" src="assets/js/main.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $(".filter-button").click(function () {
+                        var value = $(this).attr('data-filter');
+                        if (value == "all") {
+                            //$('.filter').removeClass('hidden');
+                            $('.filter').show('1000');
+                        }
+                        else {
+                            // $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+                            // $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+                            $(".filter").not('.' + value).hide('3000');
+                            $('.filter').filter('.' + value).show('3000');
+                        }
+                    });
+                    if ($(".filter-button").removeClass("active")) {
+                        $(this).removeClass("active");
+                    }
+                    $(this).addClass("active");
+                });
+            </script>
 </body>
 
 </html>
