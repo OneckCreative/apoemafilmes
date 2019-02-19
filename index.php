@@ -69,6 +69,8 @@
         <script src="assets/js/html5shiv.js"></script>
         <script src="assets/js/respond.min.js"></script>
         <![endif]-->
+    <script src="assets/js/lity.js"></script>
+    <link href="assets/css/lity.css" rel="stylesheet"/>
         <?php
 		//Custom CSS
 		if ($customCss_url !="") {
@@ -181,42 +183,46 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid">       
+
+        
+        
+<!-- infos para o super Alan, rs 
+* category = filter, filtra a categoria dos vídeos, vem da DB
+* idyoutbube = pego o ID do vídeo e gera a miniatura e iframe do vídeo
+* está exibindo só um vídeo lá da db, gostaria de saber como dizer para exibir os últimos 20.
+-->      
+        
+        <div class="container-fluid">
             <div class="row">
-                <?php while ($rowPages  = mysqli_fetch_array($sqlPages)) { ?>
-                    <div class="col-sm-3">
-                        <?php 
-                                            if ($rowPages["idyoutube"] != "") {                                                
-                                                echo '<div class="folio-item wow fadeInRightBig filter '.$rowPages["category"].' "data-wow-duration="1000ms" data-wow-delay="300ms">';
-                                            }
-                                            ?>
-                            <div class="folio-image">
-                                <?php 
-                                            if ($rowPages["idyoutube"] != "") {                                                
-                                                echo '<img src="https://img.youtube.com/vi/'.$rowPages["idyoutube"].'/hqdefault.jpg"/>';
-                                            }
-                                            ?> </div>
-                            <div class="overlay">
-                                <div class="overlay-content">
-                                    <div class="overlay-text">
-                                        <div class="folio-info">
-                                            <?php 
-                                            if ($rowPages["title"] != "") {
-                                                echo "<h3>".$rowPages["title"]."</h3>";
-                                            }
-                                            ?> </div>
-                                        <div class="folio-overview"> <span class="folio-expand">
-                                                <a href="#" data-toggle="modal" data-target="#myModal"><img src="https://img.youtube.com/vi/'.$rowPages["idyoutube"].'/hqdefault.jpg"/></a>
-                                            </span> </div>
+           <?php while ($rowPages  = mysqli_fetch_array($sqlPages)) { ?>
+                <div class="col-sm-3">
+                    <div class="folio-item wow fadeInRightBig filter <?php echo $rowPages["category"];?>" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <div class="folio-image">
+                            <img class="img-responsive" src="https://img.youtube.com/vi/<?php echo $rowPages["idyoutube"];?>/hqdefault.jpg" alt="<?php echo $rowPages["title"];?>">
+                        </div>
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <div class="overlay-text">
+                                    <div class="folio-info">
+                                        <h3><?php echo $rowPages["title"];?></h3>
                                     </div>
+                                    <div class="folio-overview"> 
+                                        <span class="folio-expand">
+                                        <a data-fancybox href="https://www.youtube.com/watch?v=<?php echo $rowPages["idyoutube"];?>&amp;autoplay=1&amp;rel=0&amp;controls=1&amp;showinfo=0" href="#"><i class="fa fa-search-plus"></i></a>
+                                        </span> </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
+                </div>    
+      		<?php } ?>
             </div>
-            <?php }	?>
         </div>
-        </div>
-    </section>
+    </section> 
+    
+    
+    
+    
     
     
         <section id="contact">
@@ -339,7 +345,8 @@
             <script type="text/javascript" src="assets/js/mousescroll.js"></script>
             <script type="text/javascript" src="assets/js/smoothscroll.js"></script>
             <script type="text/javascript" src="assets/js/jquery.countTo.js"></script>
-            <script type="text/javascript" src="assets/js/lightbox.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js"></script>
             <script type="text/javascript" src="assets/js/main.js"></script>
             <script>
                 $(document).ready(function () {
@@ -361,7 +368,9 @@
                     }
                     $(this).addClass("active");
                 });
+                
             </script>
+    
 </body>
 
 </html>
