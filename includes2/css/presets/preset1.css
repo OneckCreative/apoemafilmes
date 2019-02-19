@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+    font-family: "Open Sans", arial, sans-serif;
+}
+
+p {font-family: "Open Sans", arial, sans-serif;}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Dosis', sans-serif;
+    font-weight: 300;
+}
+
+h2 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+a,
+#home-slider .caption h1 span,
+#twitter-carousel .item span,
+#footer .footer-bottom,
+#single-portfolio .close-folio-item:hover,
+.single-table.featured .btn.btn-primary,
+.contact-info ul li a:hover,
+#footer .footer-bottom a {
+    color: #339900;
+}
+
+.btn.btn-primary:hover,
+.btn-submit {
+    border: 1px solid #ccc;
+    background: transparent;
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.btn-submit:hover {
+    background-color: none;
+}
+
+a:hover,
+a:focus {
+    color: #027db3;
+}
+
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 10px 0;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.navbar-brand img {
+    max-height: 33px;
+}
+
+.service-icon,
+.progress-bar.progress-bar-primary,
+.single-table.featured,
+.btn.btn-primary,
+.twitter-icon .fa-twitter,
+.twitter-left-control:hover,
+.twitter-right-control:hover,
+.post-icon,
+.entry-header .date:after,
+.btn-loadmore:hover,
+#footer,
+.caption .btn-start:hover,
+.left-control:hover,
+.right-control:hover,
+.folio-overview a:hover {
+    background-color: none;
+}
+
+.twitter-left-control:hover,
+.twitter-right-control:hover,
+.btn-loadmore:hover {
+    border: 1px solid #fff;
+}
+
+.main-nav {
+    background: #fff;
+    -webkit-box-shadow: -2px 7px 18px -2px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: -2px 7px 18px -2px rgba(0, 0, 0, 0.4);
+    box-shadow: -2px 7px 18px -2px rgba(0, 0, 0, 0.4);
+    max-height: 60px;
+}
+
+.caption .btn-start:hover,
+.left-control:hover,
+.right-control:hover {
+    border-color: #fff;
+}
+
+.twitter-icon .fa-twitter:after {
+    border-color: #028fcc transparent transparent;
+}
+
+.space {
+    padding: 5px 0 30px 0;
+}
+.modal-dialog {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.modal-content {
+  height: 100%;
+  border-radius: 0;
+}
