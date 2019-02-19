@@ -112,8 +112,6 @@ if ($IPrange <> '') {
                             <li> <a href="contactus.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowContact["heading"]?></a> </li>
                             <li> <a href="footer.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowFooter["heading"]?></a> </li>
                             <li> <a href="socialmedia.php"><i class="fa fa-fw fa-facebook-square"></i> <?php echo $rowSocial["heading"]?></a> </li>
-                            <li> <a href="uploads.php"><i class="fa fa-fw fa-folder"></i> Uploads</a> </li>
-                            <li> <a href="editor.php"><i class="fa fa-fw fa-css3"></i> Styles</a> </li>
                         </ul>
                     </div>
                 </nav>

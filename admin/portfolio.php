@@ -18,7 +18,7 @@ if ($_GET["preview"]>""){
         </div>
     </div>
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-md-12">
 <?php
 
 	if ($_GET["newpage"] || $_GET["editpage"]) {
@@ -39,12 +39,12 @@ if ($_GET["preview"]>""){
 
 			//update data on submit
 			if (!empty($_POST["page_title"])) {
-				$pageUpdate = "UPDATE pages SET title='".$_POST["page_title"]."',idyoutube='".$_POST["idyoutube"]."', content='".$_POST["page_content"]."',thumbnail='".$_POST["page_image"]."',active=".$_POST["page_status"].",datetime='".date("Y-m-d H:i:s")."' WHERE id='$thePageId'";
+				$pageUpdate = "UPDATE pages SET title='".$_POST["page_title"]."',idyoutube='".$_POST["idyoutube"]."', category='".$_POST["category"]."', content='".$_POST["page_content"]."',thumbnail='".$_POST["page_image"]."',active=".$_POST["page_status"].",datetime='".date("Y-m-d H:i:s")."' WHERE id='$thePageId'";
 				mysqli_query($db_conn, $pageUpdate);
 				$pageMsg="<div class='alert alert-success'>The page ".$_POST["page_title"]." has been updated.<button type='button' class='close' data-dismiss='alert' onclick=\"window.location.href='portfolio.php'\">×</button></div>";
 			}
 
-			$sqlPages = mysqli_query($db_conn, "SELECT id, title, idyoutube, thumbnail, content, active, datetime FROM pages WHERE id='$thePageId'");
+			$sqlPages = mysqli_query($db_conn, "SELECT id, title, idyoutube, category, thumbnail, content, active, datetime FROM pages WHERE id='$thePageId'");
 			$row  = mysqli_fetch_array($sqlPages);
 
 		//Create new page
@@ -52,7 +52,7 @@ if ($_GET["preview"]>""){
 			$pageLabel = "New Page Title";
 			//insert data on submit
 			if (!empty($_POST["page_title"])) {
-				$pageInsert = "INSERT INTO pages (title, content, idyoutube, thumbnail, active) VALUES ('".$_POST["page_title"]."', '".$_POST["page_content"]."', '".$_POST["idyoutube"]."', '".$_POST["page_image"]."', ".$_POST["page_status"].")";
+				$pageInsert = "INSERT INTO pages (title, content, idyoutube, category, thumbnail, active) VALUES ('".$_POST["page_title"]."', '".$_POST["page_content"]."', '".$_POST["idyoutube"]."', category='".$_POST["category"]."', '".$_POST["page_image"]."', ".$_POST["page_status"].")";
 				mysqli_query($db_conn, $pageInsert);
 				$pageMsg="<div class='alert alert-success'>The page ".$_POST["page_title"]." has been added.<button type='button' class='close' data-dismiss='alert' onclick=\"window.location.href='portfolio.php'\">×</button></div>";
 			}
@@ -94,8 +94,20 @@ if ($_GET["preview"]>""){
         
         <div class="form-group">
 			<label>ID Youtube</label>
-			<input class="form-control" name="page_title" value="<?php if($_GET["editpage"]){echo $row['idyoutube'];} ?>" placeholder="ID Youtube vídeo">
+			<input class="form-control" name="idyoutube" value="<?php if($_GET["editpage"]){echo $row['idyoutube'];} ?>" placeholder="ID Youtube vídeo">
 		</div>
+
+          <div class="form-group">
+            <label>Categoria do vídeo</label>
+            <select class="form-control" name="category">
+                <option value="filmes" <?php if($_GET["editpage"]){echo $row['category'];}?>>Filmes</option>
+                <option value="corporativo" <?php if($_GET["editpage"]){echo $row['category'];}?>>Corporativo</option>
+                <option value="eventossociais" <?php if($_GET["editpage"]){echo $row['category'];}?>>Eventos sociais</option>
+                <option value="videoclips" <?php if($_GET["editpage"]){echo $row['category'];}?>>Videoclips</option>
+                <option value="360" <?php if($_GET["editpage"]){echo $row['category'];}?>>360º</option>
+                <option value="imagensaereas" <?php if($_GET["editpage"]){echo $row['category'];}?>>Imagens aéreas</option>
+            </select>
+        </div>
 
 		<div class="form-group">
 			<label>HTML / Text</label>
@@ -121,7 +133,7 @@ if ($_GET["preview"]>""){
 
 		//delete page
 		if ($_GET["deletepage"] && $_GET["deletetitle"] && !$_GET["confirm"]) {
-			$deleteMsg="<div class='alert alert-danger'>Are you sure you want to delete ".$delPageTitle."? <a href='?deletepage=".$delPageId."&deletetitle=".$delPageTitle."&confirm=yes' class='alert-link'>Yes</a><button type='button' class='close' data-dismiss='alert' onclick=\"window.location.href='portfolio.php'\">×</button></div>";
+			$deleteMsg="<div class='alert alert-danger'>Tem certeza que quer deletar ".$delPageTitle."? <a href='?deletepage=".$delPageId."&deletetitle=".$delPageTitle."&confirm=yes' class='alert-link'>Sim</a><button type='button' class='close' data-dismiss='alert' onclick=\"window.location.href='portfolio.php'\">×</button></div>";
 			echo $deleteMsg;
 		} elseif ($_GET["deletepage"] && $_GET["deletetitle"] && $_GET["confirm"]=="yes") {
 			//delete page after clicking Yes
@@ -186,7 +198,7 @@ if ($_GET["preview"]>""){
 </div><!-- /.modal -->
 
 	<button type="button" class="btn btn-default" onclick="window.location='?newpage=true';"><i class='fa fa-fw fa-paper-plane'></i> Criar novo</button>
-		<h2>Pages</h2>
+		<h2>Portfolio</h2>
 		<div class="table-responsive">
     <?php
 		if ($pageMsg !="") {
@@ -203,7 +215,7 @@ if ($_GET["preview"]>""){
 					<tr>
 						<th>Título</th>
                         <th>ID Youtube</th>
-						<th>Pré visualizar</th>
+						<th>Categoria</th>
 						<th>Editar</th>
 						<th>Deletar</th>
 						<th>Mover</th>
@@ -212,11 +224,12 @@ if ($_GET["preview"]>""){
 				</thead>
 				<tbody>
         <?php
-					$sqlPages = mysqli_query($db_conn, "SELECT id, title, idyoutube, thumbnail, content, active FROM pages ORDER BY datetime DESC");
+					$sqlPages = mysqli_query($db_conn, "SELECT id, title, idyoutube, category, thumbnail, content, active FROM pages ORDER BY datetime DESC");
 					while ($row  = mysqli_fetch_array($sqlPages)) {
 						$pageId=$row['id'];
 						$pageTitle=$row['title'];
                         $idyoutube=$row['idyoutube'];
+                        $category=$row['category'];
 						$pageTumbnail=$row['thumbnail'];
 						$pageContent=$row['content'];
 						$pageActive=$row['active'];
@@ -228,7 +241,7 @@ if ($_GET["preview"]>""){
 						echo "<tr>
 						<td>".$pageTitle."</td>
 						<td>".$idyoutube."</td>
-                        <td><button type='button' class='btn btn-xs btn-default' onclick=\"showMyModal('$pageTitle', '?preview=$pageId')\"><i class='fa fa-fw fa-edit'></i> Visualizar</button></td>
+                        <td>".$category."</td>
 						<td><button type='button' class='btn btn-xs btn-default' onclick=\"window.location.href='?editpage=$pageId'\"><i class='fa fa-fw fa-edit'></i> Edit</button></td>
 						<td><button type='button' class='btn btn-xs btn-default' onclick=\"window.location.href='?deletepage=$pageId&deletetitle=$pageTitle'\"><i class='fa fa-fw fa-trash'></i> Delete</button></td>
 						<td><button type='button' class='btn btn-xs btn-default' onclick=\"window.location.href='?movepage=$pageId&movetitle=$pageTitle'\"><i class='fa fa-fw fa-arrow-up'></i> Move</button></td>

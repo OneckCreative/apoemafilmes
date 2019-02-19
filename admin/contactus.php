@@ -5,12 +5,12 @@ include 'includes/header.php';
 	$pageMsg="";
 	//update table on submit
 	if (!empty($_POST)) {
-		$contactUpdate = "UPDATE contactus SET heading='".$_POST["contact_heading"]."', email='".$_POST["contact_email"]."', sendtoemail='".$_POST["contact_sendtoemail"]."', address='".$_POST["contact_address"]."', city='".$_POST["contact_city"]."', state='".$_POST["contact_state"]."', zipcode='".$_POST["contact_zipcode"]."', phone='".$_POST["contact_phone"]."'";
+		$contactUpdate = "UPDATE contactus SET heading='".$_POST["contact_heading"]."', email='".$_POST["contact_email"]."', description='".$_POST["description"]."', sendtoemail='".$_POST["contact_sendtoemail"]."', address='".$_POST["contact_address"]."', city='".$_POST["contact_city"]."', state='".$_POST["contact_state"]."', zipcode='".$_POST["contact_zipcode"]."', phone='".$_POST["contact_phone"]."'";
 		mysqli_query($db_conn, $contactUpdate);
 		$pageMsg="<div class='alert alert-success'>The contact section has been updated.<button type='button' class='close' data-dismiss='alert' onclick=\"window.location.href='contactus.php'\">×</button></div>";
 	}
 
-	$sqlContact = mysqli_query($db_conn, "SELECT heading, email, sendtoemail, address, city, state, zipcode, phone FROM contactus");
+	$sqlContact = mysqli_query($db_conn, "SELECT heading, email, sendtoemail, address, city, state, zipcode, description, phone FROM contactus");
 	$row  = mysqli_fetch_array($sqlContact);
 ?>
 
@@ -28,7 +28,7 @@ include 'includes/header.php';
 			echo $pageMsg;
 		}
 		?>
-			<form role="contactForm" method="post" action="contact_me.php">
+			<form role="contactForm" method="post" action="">
 
 				<div class="form-group">
 					<label>Heading</label>
@@ -62,9 +62,13 @@ include 'includes/header.php';
 					<label>Send To Email</label>
 					<input class="form-control" name="contact_sendtoemail" value="<?php echo $row['sendtoemail']; ?>" placeholder="john.doe@email.com">
 				</div>
+                <div class="form-group">
+					<label>Informações</label>
+                    <textarea class="form-control tinymce" rows="20" name="description" value="<?php echo $row['sdescription']; ?>"><?php echo $row['description']; ?></textarea>
+				</div>
 
-				<button type="submit" class="btn btn-default"><i class='fa fa-fw fa-save'></i> Submit</button>
-				<button type="reset" class="btn btn-default"><i class='fa fa-fw fa-refresh'></i> Reset</button>
+				<button type="submit" class="btn btn-default"><i class='fa fa-fw fa-save'></i> Salvar</button>
+				<button type="reset" class="btn btn-default"><i class='fa fa-fw fa-refresh'></i> Resetar</button>
 
 			</form>
 

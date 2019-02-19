@@ -52,8 +52,8 @@ include 'includes/header.php';
 					<input class="form-control" name="social_linkedin" value="<?php echo $row['linkedin']; ?>"  placeholder="https://www.linkedin.com/username/">
 				</div>
 
-				<button type="submit" class="btn btn-default"><i class='fa fa-fw fa-save'></i> Submit</button>
-				<button type="reset" class="btn btn-default"><i class='fa fa-fw fa-refresh'></i> Reset</button>
+				<button type="submit" class="btn btn-default"><i class='fa fa-fw fa-save'></i> Salvar</button>
+				<button type="reset" class="btn btn-default"><i class='fa fa-fw fa-refresh'></i> Resetar</button>
 
 			</form>
 

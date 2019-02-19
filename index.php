@@ -16,21 +16,20 @@
 		$rowAbout = mysqli_fetch_array($sqlAbout);		
 		$sqlFooter = mysqli_query($db_conn, "SELECT heading, content FROM footer");
 		$rowFooter = mysqli_fetch_array($sqlFooter);		
-		$sqlContact = mysqli_query($db_conn, "SELECT heading, email, sendtoemail, address, city, state, zipcode, phone FROM contactus");
+		$sqlContact = mysqli_query($db_conn, "SELECT heading, email, sendtoemail, address, city, state, zipcode, description, phone FROM contactus");
 		$rowContact = mysqli_fetch_array($sqlContact);		
 		$sqlSocial = mysqli_query($db_conn, "SELECT heading, facebook, twitter, linkedin, google, github FROM socialmedia");
 		$rowSocial = mysqli_fetch_array($sqlSocial);		
 		$sqlPages = mysqli_query($db_conn,"SELECT id, title, idyoutube, category, thumbnail, content, active, datetime FROM pages WHERE active=1 ORDER BY datetime DESC"); //uses while loop		
 		$sqlPagesActive = mysqli_query($db_conn,"SELECT id, title, thumbnail, content, active FROM pages WHERE active=1"); //uses while loop
 	?>
-        <title>
-            <?php echo $rowSetup["title"];?>
-        </title>
+        <title><?php echo $rowSetup["title"];?></title>
         <meta charset="utf-8">
         <meta name="revisit-after" content="1 day">
-        <meta name="robots" content="index">
+        <meta name="robots" content="index, follow">
+        <meta name="keywords" content="<?php echo $rowSetup["keywords"];?>">
         <meta name="language" content="Portuguese">
-        <meta name="author" content="<?php echo $rowSetup[" author "];?>">
+        <meta name="author" content="<?php echo $rowSetup["author"];?>">
         <meta name="copyright" content="Apoema Filmes">
         <meta name="doc-class" content="Completed">
         <meta name="rating" content="general">
@@ -52,13 +51,13 @@
         <meta name="msapplication-TileColor" content="#3b4c54">
         <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
-        <meta name="description" content="<?php echo $rowSetup[" description "];?>">
+        <meta name="description" content="<?php echo $rowSetup["description"];?>">
         <meta name="image" content="https://apoemafilmes.com.br/og-image.jpg">
         <meta itemprop="name" content="Apoema Filmes">
-        <meta itemprop="description" content="<?php echo $rowSetup[" description "];?>">
+        <meta itemprop="description" content="<?php echo $rowSetup["description"];?>">
         <meta itemprop="image" content="https://apoemafilmes.com.br/og-image.jpg">
         <meta name="og:title" content="Apoema Filmes">
-        <meta name="og:description" content="<?php echo $rowSetup[" description "];?>">
+        <meta name="og:description" content="<?php echo $rowSetup["description"];?>">
         <meta name="og:image" content="https://apoemafilmes.com.br/og-image.jpg">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
@@ -132,9 +131,6 @@
                         <li class="scroll"><a href="#about-us">Quem Somos</a></li>
                         <li class="scroll"><a href="#portfolio">Portfolio</a></li>
                         <li class="scroll"><a href="#contact">Contato</a></li>
-                        <a href="#contact">
-                            <?php echo $rowContact["heading"];?>
-                        </a>
                     </ul>
                 </div>
             </div>
@@ -185,13 +181,13 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
+        <div class="container-fluid">       
             <div class="row">
                 <?php while ($rowPages  = mysqli_fetch_array($sqlPages)) { ?>
                     <div class="col-sm-3">
                         <?php 
                                             if ($rowPages["idyoutube"] != "") {                                                
-                                                echo '<div class="folio-item wow fadeInRightBig filter'.$rowPages["category"].'data-wow-duration="1000ms" data-wow-delay="300ms">';
+                                                echo '<div class="folio-item wow fadeInRightBig filter '.$rowPages["category"].' "data-wow-duration="1000ms" data-wow-delay="300ms">';
                                             }
                                             ?>
                             <div class="folio-image">
@@ -210,7 +206,7 @@
                                             }
                                             ?> </div>
                                         <div class="folio-overview"> <span class="folio-expand">
-                                                <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-search-plus"></i></a>
+                                                <a href="#" data-toggle="modal" data-target="#myModal"><img src="https://img.youtube.com/vi/'.$rowPages["idyoutube"].'/hqdefault.jpg"/></a>
                                             </span> </div>
                                     </div>
                                 </div>
@@ -239,133 +235,46 @@
                                 <div class="row  wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" name="name" class="form-control" placeholder="Nome" required> </div>
+                                            <input type="text" id="name" name="name" class="form-control" placeholder="Nome" required> </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="email" name="email" class="form-control" placeholder="e-mail" required> </div>
+                                            <input type="email" id="email" name="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" class="form-control" placeholder="e-mail" required> </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="subject" class="form-control" placeholder="Assunto" required> </div>
+                                    <input type="text" placeholder="Número de telefone" id="phone" name="phone" class="form-control" required> </div>
                                 <div class="form-group">
-                                    <textarea name="message" id="message" class="form-control" rows="4" placeholder="Mensagem" required></textarea>
+                                    <textarea id="message" name="message" class="form-control" rows="4" placeholder="Mensagem" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-submit btn-block">Enviar</button>
                                 </div>
+                                                        <?php
+							if ($_GET["msgsent"]=="thankyou") {
+								echo "<div id='success'><div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true' onclick=\"window.location.href='index.php#contact'\">×</button><strong>Mensagem enviada. </strong></div></div>";
+							} elseif ($_GET["msgsent"]=="error") {
+								echo "<div id='success'><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true' onclick=\"window.location.href='index.php#contact'\">×</button><strong>ocorreu um erro, tente novamente mais tarde. </strong></div></div>";
+							}
+						?>
                             </form>
                         </div>
                         <div class="col-sm-6">
                             <div class="contact-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-                                <p>A Apoema está disposta a te ajudar!
-                                    <br /> Mande um email para nossa central de relacionamento
-                                    <br /> Solicite um orçamento sem compromisso, tire suas dúvidas ou mande sua opiião </p>
-                                <ul class="address">
-                                    <li><i class="fa fa-phone"></i> <span> Telefones:</span> 11 4329-8123 / 11 94890-6751 </li>
-                                    <li><i class="fa fa-envelope"></i> <span> Email:</span><a href="mailto:contato@apoemafilmes.com.br"> contato@apoemafilmes.com.br</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    
-    
-    
-    
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2><?php echo $rowContact["heading"];?></h2>
-                    <hr class="star-primary"> </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <form name="sentMessage" id="contactForm" method="post" action="mail/contact_me.php">
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Name" id="name" name="name" maxlength="25" required data-validation-required-message="Please enter your name.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Email Address</label>
-                                <input type="email" class="form-control" placeholder="Email Address" id="email" name="email" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" maxlength="25" required data-validation-required-message="Please enter your email address.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" name="phone" maxlength="25" required data-validation-required-message="Please enter your phone number.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Message</label>
-                                <textarea rows="5" class="form-control" placeholder="Message" id="message" name="message" maxlength="255" required data-validation-required-message="Please enter a message."></textarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <input type="hidden" name="sendToEmail" value="<?php echo $rowContact[" sendtoemail "];?>"/>
-                        <input type="hidden" id="referer" name="referer" value="<?php echo $_SESSION[" unique_referer "]; ?>"/>
-                        <br>
-                        <?php
-							if ($_GET["msgsent"]=="thankyou") {
-								echo "<div id='success'><div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true' onclick=\"window.location.href='index.php#contact'\">×</button><strong>Your message has been sent. </strong></div></div>";
-							} elseif ($_GET["msgsent"]=="error") {
-								echo "<div id='success'><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true' onclick=\"window.location.href='index.php#contact'\">×</button><strong>An error occured while sending your message. </strong></div></div>";
-							}
-						?>
-                            <div class="row">
-                                <div class="form-group col-xs-12">
-                                    <button type="submit" class="btn btn-success btn-lg">Send</button>
-                                </div>
-                            </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>
-                            <?php
-                        	if (!empty($rowContact["address"])) {
-                        		echo $rowContact["address"]."<br>";
+                                
+                           <?php
+                        	if (!empty($rowContact["description"])) {
+                        		echo $rowContact["description"]."<br>";
                         	}
-	                        if (!empty($rowContact["city"])) {
-	                        	echo $rowContact["city"].", ";
-	                        }
-	                        if (!empty($rowContact["state"])) {
-	                        	echo $rowContact["state"]."<br>";
-	                        }
-	                        if (!empty($rowContact["phone"])) {
-	                        	echo $rowContact["phone"]."<br>";
-	                        }
-	                        if (!empty($rowContact["email"])) {
-	                        	echo $rowContact["email"];
-	                        }
-                        ?>
-                        </p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3><?php echo $rowSocial["heading"];?></h3>
-                        <ul class="list-inline">
+                            if (!empty($rowContact["phone"])) {
+                        		echo "<i class=\"fa fa-phone\"></i> <span> Telefones: </span>".$rowContact["phone"]."</a><br>";
+                        	}
+                            if (!empty($rowContact["email"])) {
+                        		echo "<i class=\"fa fa-envelope\"></i> <span> Email: </span><a href=".$rowContact["email"].">".$rowContact["email"]."</a>";
+                        	}
+
+                        ?><hr />
+                                 <ul class="list-inline">
                             <?php
 									if (!empty($rowSocial["facebook"])){
 										echo "<li><a href=".$rowSocial["facebook"]." class='btn-social btn-outline'><i class='fa fa-fw fa-facebook'></i></a></li>";
@@ -388,27 +297,14 @@
 									}
 								?>
                         </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3><?php echo $rowFooter["heading"];?></h3>
-                        <?php echo $rowFooter["content"];?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12"> Copyright &copy;
-                        <?php echo $_SERVER['HTTP_HOST']."&nbsp;".date("Y");?>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
-    
-    
-    
+    </section>   
         <footer id="footer">
         <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="container text-center">
@@ -421,7 +317,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>&copy; 2016 Apoema Filmes.</p>
+                        <p> Copyright &copy;
+                        <?php echo $_SERVER['HTTP_HOST']."&nbsp;".date("Y");?></p>
                     </div>
                     <div class="col-sm-6">
                         <p class="pull-right">Design by <a href="//oneck.com.br/" target="_blank">Oneck Creative</a></p>
@@ -434,41 +331,6 @@
     <div class="scroll-top page-scroll visible-xs visble-sm">
         <a class="btn btn-primary" href="#page-top"> <i class="fa fa-chevron-up"></i> </a>
     </div>
-    <?php
-	while ($rowPagesActive  = mysqli_fetch_array($sqlPagesActive)) {
-?>
-        <!-- Portfolio Modals -->
-        <div class="portfolio-modal modal fade" id="portfolioModal<?php echo $rowPagesActive[" id "];?>" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="close-modal" data-dismiss="modal">
-                    <div class="lr">
-                        <div class="rl"> </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="modal-body">
-                                <h2><?php echo $rowPagesActive["title"];?></h2>
-                                <hr class="star-primary">
-                                <?php 
-	                            if ($rowPagesActive["thumbnail"] != "") {
-	                                echo "<img src='uploads/".$rowPagesActive["thumbnail"]."' class='img-responsive img-centered' alt=''>";
-	                            } else {
-	                                echo "<img src='assets/img/portfolio/cake.png' class='img-responsive' alt=''>";
-	                            }
-                            ?>
-                                    <?php echo $rowPagesActive["content"];?>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php 
-	} 
-?>
             <script type="text/javascript" src="assets/js/jquery.js"></script>
             <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
             <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
