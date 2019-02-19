@@ -221,6 +221,62 @@
         </div>
         </div>
     </section>
+    
+    
+        <section id="contact">
+        <div id="contact-us" class="parallax">
+            <div class="container">
+                <div class="row">
+                    <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <h2><?php echo $rowContact["heading"];?></h2>
+                        <p>PREENCHA O FORMULÁRIO ABAIXO </p>
+                    </div>
+                </div>
+                <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <form id="main-contact-form" name="contact-form" method="post" action="#">
+                                <div class="row  wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" name="name" class="form-control" placeholder="Nome" required> </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="email" name="email" class="form-control" placeholder="e-mail" required> </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="subject" class="form-control" placeholder="Assunto" required> </div>
+                                <div class="form-group">
+                                    <textarea name="message" id="message" class="form-control" rows="4" placeholder="Mensagem" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-submit btn-block">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="contact-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                <p>A Apoema está disposta a te ajudar!
+                                    <br /> Mande um email para nossa central de relacionamento
+                                    <br /> Solicite um orçamento sem compromisso, tire suas dúvidas ou mande sua opiião </p>
+                                <ul class="address">
+                                    <li><i class="fa fa-phone"></i> <span> Telefones:</span> 11 4329-8123 / 11 94890-6751 </li>
+                                    <li><i class="fa fa-envelope"></i> <span> Email:</span><a href="mailto:contato@apoemafilmes.com.br"> contato@apoemafilmes.com.br</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    
+    
     <!-- Contact Section -->
     <section id="contact">
         <div class="container">
@@ -345,6 +401,30 @@
                 <div class="row">
                     <div class="col-lg-12"> Copyright &copy;
                         <?php echo $_SERVER['HTTP_HOST']."&nbsp;".date("Y");?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    
+    
+        <footer id="footer">
+        <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div class="container text-center">
+                <div class="footer-logo">
+                    <a href="index.php"><img class="img-responsive" src="assets/images/logo-min.png" alt="Apoema Filmes"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>&copy; 2016 Apoema Filmes.</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="pull-right">Design by <a href="//oneck.com.br/" target="_blank">Oneck Creative</a></p>
                     </div>
                 </div>
             </div>
