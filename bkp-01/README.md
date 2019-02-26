@@ -1,2 +1,0 @@
-# Apoema Filmes
-Alterações visuais

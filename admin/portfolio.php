@@ -93,8 +93,8 @@ if ($_GET["preview"]>""){
 		</div>
         
         <div class="form-group">
-			<label>ID Youtube</label>
-			<input class="form-control" name="idyoutube" value="<?php if($_GET["editpage"]){echo $row['idyoutube'];} ?>" placeholder="ID Youtube vídeo">
+			<label>ID Vimeo</label>
+			<input class="form-control" name="idyoutube" value="<?php if($_GET["editpage"]){echo $row['idyoutube'];} ?>" placeholder="ID Vimeo vídeo">
 		</div>
 
           <div class="form-group">
@@ -108,6 +108,34 @@ if ($_GET["preview"]>""){
                 <option value="imagensaereas" <?php if($_GET["editpage"]){echo $row['category'];}?>>Imagens aéreas</option>
             </select>
         </div>
+         <div class="form-group">
+            <label>Enviar arquivo</label>
+            <input type="file" name="fileToUpload" id="fileToUpload">
+        </div>
+		<div class="form-group">
+			<label>Use imagem existente</label>
+			<select class="form-control" name="page_image">
+				<option value="">None</option>
+				<?php
+					if ($handle = opendir($target_dir)) {
+						while (false !== ($file = readdir($handle))) {
+							if ('.' === $file) continue;
+							if ('..' === $file) continue;
+							if ($file==="Thumbs.db") continue;
+							if ($file===".DS_Store") continue;
+							if ($file==="index.html") continue;
+							if ($file===$row['thumbnail']){
+								$imageCheck="SELECTED";
+							} else {
+								$imageCheck="";
+							}
+							echo "<option value=".$file." $imageCheck>".$file."</option>";
+						}
+						closedir($handle);
+					}
+				?>
+			</select>
+		</div>
 
 		<div class="form-group">
 			<label>HTML / Text</label>

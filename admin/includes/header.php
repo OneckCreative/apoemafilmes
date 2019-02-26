@@ -48,6 +48,9 @@ if ($IPrange <> '') {
 
 	$sqlFooter = mysqli_query($db_conn, "SELECT heading FROM footer");
 	$rowFooter  = mysqli_fetch_array($sqlFooter);
+        
+    $sqlSlider = mysqli_query($db_conn, "SELECT heading FROM slider");
+	$rowSlider  = mysqli_fetch_array($sqlSlider);
 
 	$sqlSocial = mysqli_query($db_conn, "SELECT heading FROM socialmedia");
 	$rowSocial  = mysqli_fetch_array($sqlSocial);
@@ -106,9 +109,11 @@ if ($IPrange <> '') {
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav side-nav">
                             <li> <a href="setup.php"><i class="fa fa-fw fa-gear"></i> Setup</a> </li>
+                            <li> <a href="slider.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowSlider["heading"]?></a> </li>
                             <li> <a href="landing.php"><i class="fa fa-fw fa-rocket"></i> <?php echo $rowLanding["heading"]?></a> </li>
                             <li> <a href="portfolio.php"><i class="fa fa-fw fa-table"></i> <?php echo $rowSetup["portfolioheading"]?></a> </li>
                             <li> <a href="aboutus.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowAbout["heading"]?></a> </li>
+                            
                             <li> <a href="contactus.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowContact["heading"]?></a> </li>
                             <li> <a href="footer.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowFooter["heading"]?></a> </li>
                             <li> <a href="socialmedia.php"><i class="fa fa-fw fa-facebook-square"></i> <?php echo $rowSocial["heading"]?></a> </li>
