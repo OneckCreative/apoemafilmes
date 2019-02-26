@@ -112,10 +112,8 @@ if ($IPrange <> '') {
                             <li> <a href="slider.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowSlider["heading"]?></a> </li>
                             <li> <a href="landing.php"><i class="fa fa-fw fa-rocket"></i> <?php echo $rowLanding["heading"]?></a> </li>
                             <li> <a href="portfolio.php"><i class="fa fa-fw fa-table"></i> <?php echo $rowSetup["portfolioheading"]?></a> </li>
-                            <li> <a href="aboutus.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowAbout["heading"]?></a> </li>
-                            
+                            <li> <a href="aboutus.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowAbout["heading"]?></a> </li>                            
                             <li> <a href="contactus.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowContact["heading"]?></a> </li>
-                            <li> <a href="footer.php"><i class="fa fa-fw fa-edit"></i> <?php echo $rowFooter["heading"]?></a> </li>
                             <li> <a href="socialmedia.php"><i class="fa fa-fw fa-facebook-square"></i> <?php echo $rowSocial["heading"]?></a> </li>
                         </ul>
                     </div>

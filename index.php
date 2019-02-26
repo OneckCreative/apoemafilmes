@@ -287,11 +287,11 @@
 									}
 
 									if (!empty($rowSocial["google"])){
-										echo "<li><a href=".$rowSocial["google"]." class='btn-social btn-outline'><i class='fa fa-fw fa-google-plus'></i></a></li>";
+										echo "<li><a href=".$rowSocial["google"]." class='btn-social btn-outline'><i class='fa fa-fw fa-instagram'></i></a></li>";
 									}
 
 									if (!empty($rowSocial["github"])){
-										echo "<li><a href=".$rowSocial["github"]." class='btn-social btn-outline'><i class='fa fa-fw fa-github'></i></a></li>";
+										echo "<li><a href=".$rowSocial["github"]." class='btn-social btn-outline'><i class='fa fa-fw fa-vimeo-square'></i></a></li>";
 									}
 
 									if (!empty($rowSocial["twitter"])){
@@ -311,24 +311,47 @@
         </div>
     </section>
     <footer id="footer">
-        <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-            <div class="container text-center">
-                <div class="footer-logo">
-                    <a href="index.php"><img class="img-responsive" src="assets/images/logo-min.png" alt="Apoema Filmes"></a>
-                </div>
-                <div class="scroll-top page-scroll">
-        <a class="btn " href="#page-top"> <i class="fa fa-chevron-up"></i> </a>
-    </div>
-            </div>
-        </div>
+
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <p> Copyright &copy; Apoema Filmes 2019 </p>
+                    <div class="col-sm-4">
+                        <div class="footer-logo">
+                    <a href="index.php"><img class="img-responsive" src="assets/images/logo-min.png" alt="Apoema Filmes"></a>
+                </div>
                     </div>
-                    <div class="col-sm-6">
-                        <p class="pull-right">Design by <a href="//oneck.com.br/" target="_blank">Oneck Creative</a></p>
+                                 <div class="col-sm-4 text-center">
+                                        
+                                   <ul class="list-inline">
+                                        <?php
+									if (!empty($rowSocial["facebook"])){
+										echo "<li><a href=".$rowSocial["facebook"]." class='btn-social btn-outline'><i class='fa fa-fw fa-facebook'></i></a></li>";
+									}
+
+									if (!empty($rowSocial["google"])){
+										echo "<li><a href=".$rowSocial["google"]." class='btn-social btn-outline'><i class='fa fa-fw fa-instagram'></i></a></li>";
+									}
+
+									if (!empty($rowSocial["github"])){
+										echo "<li><a href=".$rowSocial["github"]." class='btn-social btn-outline'><i class='fa fa-fw fa-vimeo-square'></i></a></li>";
+									}
+
+									if (!empty($rowSocial["twitter"])){
+										echo "<li><a href=".$rowSocial["twitter"]." class='btn-social btn-outline'><i class='fa fa-fw fa-twitter'></i></a></li>";
+									}
+
+									if (!empty($rowSocial["linkedin"])){
+										echo "<li><a href=".$rowSocial["linkedin"]." class='btn-social btn-outline'><i class='fa fa-fw fa-linkedin'></i></a></li>";
+									}
+								?>
+                                 </ul>
+                                            <div class="scroll-top page-scroll">
+        <a class="btn " href="#page-top"> <i class="fa fa-chevron-up"></i> </a>
+    </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="pull-right"> &copy; Copyright 2019 - Apoema Filmes. <br />
+                        Design by <a href="//oneck.com.br/" target="_blank">Oneck Creative</a></p>
                     </div>
                 </div>
             </div>

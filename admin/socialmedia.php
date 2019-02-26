@@ -40,12 +40,12 @@ include 'includes/header.php';
 					<input class="form-control" name="social_twitter" value="<?php echo $row['twitter']; ?>"  placeholder="https://www.twitter.com/username">
 				</div>
 				<div class="form-group">
-					<label>Google+</label>
-					<input class="form-control" name="social_google" value="<?php echo $row['google']; ?>"  placeholder="https://plus.google.com/8675309/posts">
+					<label>Instagram</label>
+					<input class="form-control" name="social_google" value="<?php echo $row['google']; ?>"  placeholder="https://instagram.com/oneckcreative">
 				</div>
 				<div class="form-group">
-					<label>GitHub</label>
-					<input class="form-control" name="social_github" value="<?php echo $row['github']; ?>"  placeholder="https://www.github.com/username/">
+					<label>Vimeo</label>
+					<input class="form-control" name="social_github" value="<?php echo $row['github']; ?>"  placeholder="https://vimeo.com/username/">
 				</div>
 				<div class="form-group">
 					<label>LinkedIn</label>
